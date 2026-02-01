@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>楽文株式会社 | Rakubun - 想いを形に、本を文化に。</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ========================================
+           【樣式設定區域】字體、顏色、尺寸管理
+           ======================================== */
+        :root {
+            /* 配色方案 - 日式傳統色系 */
+            --color-primary: #2C2C2C;        /* 墨色（主色） */
+            --color-background: #F5F5F0;     /* 和紙白（背景） */
+            --color-accent: #C73E3A;         /* 朱紅（強調色） */
+            --color-secondary: #E8E8E8;      /* 淺灰（輔助色） */
+            --color-text: #2C2C2C;           /* 文字色 */
+            --color-text-light: #666666;     /* 淺文字色 */
+            
+            /* 字體設定 */
+            --font-serif: 'Noto Serif JP', serif;
+            --font-sans: 'Noto Sans JP', sans-serif;
+            --font-sans-tc: 'Noto Sans TC', sans-serif;
+            
+            /* 字級設定 */
+            --font-size-hero: 48px;
+            --font-size-h1: 36px;
+            --font-size-h2: 28px;
+            --font-size-h3: 20px;
+            --font-size-body: 16px;
+            --font-size-small: 14px;
+            
+            /* 字重設定 */
+            --font-weight-light: 300;
+            --font-weight-regular: 400;
+            --font-weight-medium: 500;
+            --font-weight-bold: 700;
+            
+            /* 其他樣式 */
+            --border-radius: 6px;
+            --transition: 0.3s ease;
+            --max-width: 1200px;
+        }
+
+        /* ========================================
+           基礎樣式
+           ======================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--color-background);
+            color: var(--color-text);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* 中文字體切換 */
+        body.lang-zh {
+            font-family: var(--font-sans-tc);
+        }
+
+        body.lang-zh .serif {
+            font-family: var(--font-sans-tc);
+        }
+
+        .serif {
+            font-family: var(--font-serif);
+        }
+
+        /* ========================================
+           Header 固定導航
+           ======================================== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(245, 245, 240, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(199, 62, 58, 0.15);
+            transition: var(--transition);
+        }
+
+        .header-container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: var(--font-weight-bold);
+            color: var(--color-primary);
+            text-decoration: none;
+            font-family: var(--font-serif);
+            display: flex;
+            flex-direction: column;
+            line-height: 1.3;
+        }
+
+        .logo-en {
+            font-size: 0.75rem;
+            font-weight: var(--font-weight-regular);
+            color: var(--color-text-light);
+            margin-top: 0.2rem;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--color-text);
+            text-decoration: none;
+            font-size: var(--font-size-small);
+            font-weight: var(--font-weight-medium);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--color-accent);
+            transition: var(--transition);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* 語言切換按鈕 */
+        .lang-switcher {
+            display: flex;
+            gap: 0.5rem;
+            margin-left: 1rem;
+            padding-left: 1rem;
+            border-left: 1px solid var(--color-secondary);
+        }
+
+        .lang-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 0.3rem 0.5rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            opacity: 0.5;
+        }
+
+        .lang-btn.active {
+            opacity: 1;
+            background-color: rgba(199, 62, 58, 0.1);
+        }
+
+        .lang-btn:hover {
+            opacity: 1;
+        }
+
+        /* 漢堡選單（手機版） */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 0.3rem;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 2px;
+            background-color: var(--color-primary);
+            transition: var(--transition);
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        /* ========================================
+           Hero Section
+           ======================================== */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(245, 245, 240, 0.95) 0%, rgba(232, 232, 232, 0.95) 100%),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect fill="%23F5F5F0" width="100" height="100"/><path d="M0 0L100 100M100 0L0 100" stroke="%23E8E8E8" stroke-width="0.5"/></svg>');
+            background-size: cover, 50px 50px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(199, 62, 58, 0.08) 0%, transparent 70%);
+            animation: float 20s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-50px, 50px) scale(1.1); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            padding: 0 2rem;
+        }
+
+        .hero h1 {
+            font-size: var(--font-size-hero);
+            font-weight: var(--font-weight-bold);
+            color: var(--color-accent);
+            margin-bottom: 1rem;
+            font-family: var(--font-serif);
+            line-height: 1.4;
+        }
+
+        .hero .company-name {
+            font-size: var(--font-size-h2);
+            font-weight: var(--font-weight-medium);
+            color: var(--color-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .hero .company-name-en {
+            font-size: var(--font-size-h3);
+            font-weight: var(--font-weight-regular);
+            color: var(--color-text-light);
+            margin-bottom: 2rem;
+        }
+
+        .hero .description {
+            font-size: var(--font-size-body);
+            color: var(--color-text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ========================================
+           Section 通用樣式
+           ======================================== */
+        section {
+            padding: 5rem 2rem;
+            scroll-margin-top: 80px;
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: var(--font-size-h1);
+            font-weight: var(--font-weight-bold);
+            color: var(--color-primary);
+            text-align: center;
+            margin-bottom: 3rem;
+            font-family: var(--font-serif);
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background-color: var(--color-accent);
+        }
+
+        /* ========================================
+           About Section
+           ======================================== */
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            font-size: var(--font-size-body);
+            line-height: 2;
+            color: var(--color-text);
+        }
+
+        /* ========================================
+           Services Section
+           ======================================== */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background: #fff;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            border: 1px solid transparent;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(199, 62, 58, 0.15);
+            border-color: var(--color-accent);
+        }
+
+        .service-card h3 {
+            font-size: var(--font-size-h3);
+            font-weight: var(--font-weight-bold);
+            color: var(--color-accent);
+            margin-bottom: 1rem;
+            font-family: var(--font-serif);
+        }
+
+        .service-card p {
+            font-size: var(--font-size-small);
+            color: var(--color-text-light);
+            line-height: 1.8;
+        }
+
+        /* ========================================
+           Portfolio Section
+           ======================================== */
+        .portfolio {
+            background-color: #fff;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            aspect-ratio: 4/3;
+            background-color: var(--color-secondary);
+            transition: var(--transition);
+        }
+
+        .portfolio-item:hover {
+            transform: scale(1.03);
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .portfolio-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(44, 44, 44, 0.9) 0%, transparent 100%);
+            padding: 1.5rem;
+            transform: translateY(100%);
+            transition: var(--transition);
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            transform: translateY(0);
+        }
+
+        .portfolio-overlay h4 {
+            color: #fff;
+            font-size: var(--font-size-body);
+            font-weight: var(--font-weight-bold);
+            margin-bottom: 0.5rem;
+        }
+
+        .portfolio-overlay p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: var(--font-size-small);
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 90vh;
+            border-radius: var(--border-radius);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: #fff;
+            font-size: 2rem;
+            cursor: pointer;
+            background: rgba(199, 62, 58, 0.8);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .lightbox-close:hover {
+            background: var(--color-accent);
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #fff;
+            font-size: 2rem;
+            cursor: pointer;
+            background: rgba(199, 62, 58, 0.8);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .lightbox-nav:hover {
+            background: var(--color-accent);
+        }
+
+        .lightbox-prev {
+            left: 20px;
+        }
+
+        .lightbox-next {
+            right: 20px;
+        }
+
+        /* ========================================
+           Company Info Section
+           ======================================== */
+        .company-info {
+            background-color: var(--color-background);
+        }
+
+        .company-table {
+            max-width: 700px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .company-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .company-table tr {
+            border-bottom: 1px solid var(--color-secondary);
+        }
+
+        .company-table tr:last-child {
+            border-bottom: none;
+        }
+
+        .company-table th {
+            background-color: rgba(199, 62, 58, 0.05);
+            padding: 1.2rem 1.5rem;
+            text-align: left;
+            font-weight: var(--font-weight-bold);
+            color: var(--color-primary);
+            width: 30%;
+            font-size: var(--font-size-small);
+        }
+
+        .company-table td {
+            padding: 1.2rem 1.5rem;
+            color: var(--color-text);
+            font-size: var(--font-size-small);
+        }
+
+        .company-table a {
+            color: var(--color-accent);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .company-table a:hover {
+            text-decoration: underline;
+        }
+
+        /* ========================================
+           Contact Section
+           ======================================== */
+        .contact {
+            background-color: #fff;
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .contact-info h3 {
+            font-size: var(--font-size-h3);
+            color: var(--color-accent);
+            margin-bottom: 1.5rem;
+            font-family: var(--font-serif);
+        }
+
+        .contact-info p {
+            margin-bottom: 1rem;
+            color: var(--color-text);
+            font-size: var(--font-size-small);
+            line-height: 1.8;
+        }
+
+        .contact-info strong {
+            color: var(--color-primary);
+            font-weight: var(--font-weight-bold);
+            display: inline-block;
+            min-width: 80px;
+        }
+
+        .contact-map {
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-map iframe {
+            width: 100%;
+            height: 400px;
+            border: none;
+        }
+
+        /* ========================================
+           Footer
+           ======================================== */
+        footer {
+            background-color: var(--color-primary);
+            color: #fff;
+            text-align: center;
+            padding: 2.5rem 2rem 1.5rem;
+        }
+
+        .footer-contact {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .footer-contact p {
+            font-size: var(--font-size-small);
+            opacity: 0.9;
+            margin: 0.5rem 0;
+        }
+
+        .footer-contact strong {
+            font-size: var(--font-size-body);
+            font-weight: var(--font-weight-bold);
+        }
+
+        .footer-contact a {
+            color: #fff;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-contact a:hover {
+            opacity: 0.8;
+        }
+
+        footer p {
+            font-size: var(--font-size-small);
+            opacity: 0.7;
+            margin: 0;
+        }
+
+        /* ========================================
+           響應式設計
+           ======================================== */
+        @media (max-width: 1023px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .header-container {
+                padding: 1rem;
+            }
+
+            nav {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: rgba(245, 245, 240, 0.98);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 2rem;
+                transition: var(--transition);
+                backdrop-filter: blur(10px);
+            }
+
+            nav.active {
+                left: 0;
+            }
+
+            .lang-switcher {
+                border-left: none;
+                border-top: 1px solid var(--color-secondary);
+                padding-top: 1rem;
+                margin-top: 1rem;
+                margin-left: 0;
+                padding-left: 0;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .hero .company-name {
+                font-size: 20px;
+            }
+
+            .hero .company-name-en {
+                font-size: 16px;
+            }
+
+            section {
+                padding: 3rem 1rem;
+            }
+
+            .services-grid,
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .company-table th,
+            .company-table td {
+                display: block;
+                width: 100%;
+                padding: 0.8rem 1rem;
+            }
+
+            .company-table th {
+                border-bottom: none;
+                padding-bottom: 0.3rem;
+            }
+
+            .company-table td {
+                padding-top: 0.3rem;
+                padding-bottom: 1rem;
+            }
+
+            .lightbox-nav {
+                width: 40px;
+                height: 40px;
+                font-size: 1.5rem;
+            }
+
+            .lightbox-prev {
+                left: 10px;
+            }
+
+            .lightbox-next {
+                right: 10px;
+            }
+        }
+
+        /* 平滑滾動 */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+
+    <script>
+        // ========================================
+        // 【編輯區域】網站內容設定
+        // ========================================
+        const siteContent = {
+            // 日文內容
+            ja: {
+                nav: {
+                    home: "ホーム",
+                    about: "会社概要",
+                    services: "サービス",
+                    portfolio: "実績",
+                    contact: "お問い合わせ"
+                },
+                hero: {
+                    slogan: "想いを形に、本を文化に。",
+                    companyName: "楽文株式会社",
+                    companyNameEn: "Rakubun",
+                    description: "書籍・雑誌の企画制作で、あなたの想いを美しいデザインに"
+                },
+                about: {
+                    title: "会社概要",
+                    content: "楽文株式会社は、東京を拠点に日本の出版社の皆様へプロフェッショナルなデザインサービスを提供しております。書籍や雑誌の企画、制作、そして販売促進に至るまで、出版に関わるクリエイティブをトータルでサポートいたします。創業者・蘇（そ）は、台湾と北京で40年以上にわたる豊富な出版デザインの経験を持ち、その確かな技術と国際的な視点を活かして、読者の心に響く「本づくり」を追求しています。私たちは、著者の想いと出版社の情熱を形にし、次世代へと続く文化の創造に貢献します。"
+                },
+                services: [
+                    {
+                        title: "書籍デザイン",
+                        description: "本の顔となる装丁から本文レイアウトまで、トータルデザインを提供します。読みやすさと美しさを両立させた、読者に愛される本づくりをサポートします。"
+                    },
+                    {
+                        title: "装丁・カバーデザイン",
+                        description: "読者の心を掴む、印象的な表紙デザインを制作します。本の内容を的確に表現し、書店で目を引くビジュアルを創り出します。"
+                    },
+                    {
+                        title: "エディトリアルデザイン",
+                        description: "雑誌や書籍の誌面デザインを通じて、視覚的な情報伝達を最適化します。読者体験を重視したレイアウト設計を行います。"
+                    },
+                    {
+                        title: "組版・DTP",
+                        description: "読みやすさを追求した精密な組版技術で、高品質な印刷物を実現します。細部まで配慮した美しい文字組みを提供します。"
+                    },
+                    {
+                        title: "ブランディング",
+                        description: "出版社や著者のブランド価値を高めるデザイン戦略を提案します。一貫性のあるビジュアルアイデンティティを構築します。"
+                    },
+                    {
+                        title: "販売促進物制作",
+                        description: "POP、チラシ、ポスターなど販促ツールのデザインで、出版物の販売をサポートします。効果的なプロモーションを実現します。"
+                    }
+                ],
+                portfolio: {
+                    title: "実績紹介",
+                    items: [
+                        {
+                            title: "文学作品集『摩登府城』",
+                            description: "現代詩人による季節をテーマにした詩集の装丁デザイン"
+                        },
+                        {
+                            title: "ビジネス書『経営の本質』",
+                            description: "経営者向け実践的ガイドブックの全体デザイン"
+                        },
+                        {
+                            title: "料理雑誌『和食の心』",
+                            description: "伝統的日本料理を紹介する月刊誌のエディトリアルデザイン"
+                        },
+                        {
+                            title: "児童書『森の物語』シリーズ",
+                            description: "子供向け絵本シリーズの装丁とレイアウトデザイン"
+                        },
+                        {
+                            title: "学術書『日本美術史概論』",
+                            description: "大学教材用の美術史専門書の組版とデザイン"
+                        },
+                        {
+                            title: "ライフスタイル誌『都市と自然』",
+                            description: "都市生活と自然との調和をテーマにした雑誌デザイン"
+                        },
+                        {
+                            title: "エッセイ集『旅の記憶』",
+                            description: "紀行文エッセイのブックデザインと装丁"
+                        },
+                        {
+                            title: "専門誌『建築デザイン』",
+                            description: "建築専門誌の誌面レイアウトとビジュアル構成"
+                        },
+                        {
+                            title: "文芸誌『文学の今』",
+                            description: "現代文学を特集する季刊誌のトータルデザイン"
+                        }
+                    ]
+                },
+                companyInfo: {
+                    title: "会社情報",
+                    labels: {
+                        name: "会社名",
+                        representative: "代表取締役",
+                        address: "所在地",
+                        phone: "電話",
+                        email: "Email",
+                        business: "事業内容"
+                    },
+                    business: "書籍や雑誌などの出版物の企画・制作・販売促進事業"
+                },
+                contact: {
+                    title: "お問い合わせ",
+                    subtitle: "お気軽にご連絡ください",
+                    description: "制作のご依頼、お見積もりなど、お気軽にお問い合わせください。"
+                },
+                footer: {
+                    copyright: "Copyright © 2026 楽文株式会社 All Rights Reserved."
+                }
+            },
+
+            // 中文內容（繁體中文）
+            zh: {
+                nav: {
+                    home: "首頁",
+                    about: "公司簡介",
+                    services: "服務項目",
+                    portfolio: "作品集",
+                    contact: "聯絡我們"
+                },
+                hero: {
+                    slogan: "將心意化為形體，讓書籍成為文化。",
+                    companyName: "楽文株式會社",
+                    companyNameEn: "Rakubun",
+                    description: "透過書籍與雜誌的企劃製作，將您的想法化為精美設計"
+                },
+                about: {
+                    title: "公司簡介",
+                    content: "楽文株式會社以東京為據點，為日本出版社提供專業設計服務。從書籍與雜誌的企劃、製作到銷售推廣，我們全方位支援出版相關的創意工作。創辦人蘇先生在台灣與北京擁有超過40年的豐富出版設計經驗，運用扎實的技術與國際視野，追求能觸動讀者心靈的「書籍製作」。我們將作者的想法與出版社的熱情化為形體，為創造延續至下一代的文化做出貢獻。"
+                },
+                services: [
+                    {
+                        title: "書籍設計",
+                        description: "從書籍封面裝幀到內文版面，提供全方位設計服務。兼顧易讀性與美感，協助打造讀者喜愛的書籍。"
+                    },
+                    {
+                        title: "封面裝幀設計",
+                        description: "製作能抓住讀者目光的印象深刻封面設計。準確表達書籍內容，創造在書店中脫穎而出的視覺效果。"
+                    },
+                    {
+                        title: "編輯設計",
+                        description: "透過雜誌與書籍的版面設計，優化視覺資訊傳達。以重視讀者體驗的方式進行版面規劃。"
+                    },
+                    {
+                        title: "排版・DTP",
+                        description: "以追求易讀性的精密排版技術，實現高品質印刷品。提供細節講究的優美文字編排。"
+                    },
+                    {
+                        title: "品牌設計",
+                        description: "提案提升出版社與作者品牌價值的設計策略。建立具一貫性的視覺識別系統。"
+                    },
+                    {
+                        title: "促銷物製作",
+                        description: "設計POP、傳單、海報等促銷工具，支援出版品銷售。實現有效的推廣宣傳。"
+                    }
+                ],
+                portfolio: {
+                    title: "作品集",
+                    items: [
+                        {
+                            title: "文學作品集《四季之詩》",
+                            description: "當代詩人以季節為主題的詩集裝幀設計"
+                        },
+                        {
+                            title: "商業書籍《經營本質》",
+                            description: "經營者實用指南的整體設計"
+                        },
+                        {
+                            title: "料理雜誌《和食之心》",
+                            description: "介紹傳統日本料理的月刊編輯設計"
+                        },
+                        {
+                            title: "兒童讀物《森林故事》系列",
+                            description: "兒童繪本系列的裝幀與版面設計"
+                        },
+                        {
+                            title: "學術書籍《日本美術史概論》",
+                            description: "大學教材美術史專書的排版與設計"
+                        },
+                        {
+                            title: "生活風格誌《都市與自然》",
+                            description: "以都市生活與自然調和為主題的雜誌設計"
+                        },
+                        {
+                            title: "散文集《旅行記憶》",
+                            description: "遊記散文的書籍設計與裝幀"
+                        },
+                        {
+                            title: "專業期刊《建築設計》",
+                            description: "建築專業雜誌的版面編排與視覺構成"
+                        },
+                        {
+                            title: "文藝誌《當代文學》",
+                            description: "現代文學特輯季刊的整體設計"
+                        }
+                    ]
+                },
+                companyInfo: {
+                    title: "公司資訊",
+                    labels: {
+                        name: "公司名稱",
+                        representative: "代表董事",
+                        address: "地址",
+                        phone: "電話",
+                        email: "電子郵件",
+                        business: "業務內容"
+                    },
+                    business: "書籍與雜誌等出版品的企劃、製作、銷售推廣業務"
+                },
+                contact: {
+                    title: "聯絡我們",
+                    subtitle: "歡迎隨時與我們聯繫",
+                    description: "製作委託、報價需求等，歡迎隨時與我們聯絡。"
+                },
+                footer: {
+                    copyright: "Copyright © 2026 楽文株式會社 版權所有"
+                }
+            },
+
+            // 英文內容
+            en: {
+                nav: {
+                    home: "Home",
+                    about: "About",
+                    services: "Services",
+                    portfolio: "Portfolio",
+                    contact: "Contact"
+                },
+                hero: {
+                    slogan: "Transforming Ideas into Form, Books into Culture.",
+                    companyName: "Rakubun Inc.",
+                    companyNameEn: "Rakubun",
+                    description: "Beautiful design solutions for your publishing projects"
+                },
+                about: {
+                    title: "About Us",
+                    content: "Rakubun Inc. is a Tokyo-based design agency providing professional design services to Japanese publishers. From book and magazine planning and production to sales promotion, we offer comprehensive creative support for all publishing needs. Our founder, Mr. So, brings over 40 years of rich publishing design experience from Taiwan and Beijing, utilizing solid technical expertise and an international perspective to pursue 'book creation' that resonates with readers' hearts. We transform authors' ideas and publishers' passion into tangible form, contributing to the creation of culture that continues to the next generation."
+                },
+                services: [
+                    {
+                        title: "Book Design",
+                        description: "Comprehensive design services from cover design to interior layouts. We support the creation of reader-friendly books that balance readability with beauty."
+                    },
+                    {
+                        title: "Cover Design",
+                        description: "Creating impressive cover designs that capture readers' attention. We produce visuals that accurately express content and stand out in bookstores."
+                    },
+                    {
+                        title: "Editorial Design",
+                        description: "Optimizing visual communication through magazine and book layout design. We create layouts that prioritize reader experience."
+                    },
+                    {
+                        title: "Typesetting & DTP",
+                        description: "Achieving high-quality printed materials through precise typesetting that pursues readability. We provide beautiful text composition with attention to detail."
+                    },
+                    {
+                        title: "Branding",
+                        description: "Proposing design strategies that enhance brand value for publishers and authors. We build consistent visual identities."
+                    },
+                    {
+                        title: "Promotional Materials",
+                        description: "Supporting publication sales through design of POP displays, flyers, posters, and other promotional tools. We realize effective marketing campaigns."
+                    }
+                ],
+                portfolio: {
+                    title: "Portfolio",
+                    items: [
+                        {
+                            title: "Literary Collection 'Poems of Four Seasons'",
+                            description: "Cover design for contemporary poetry collection themed on seasons"
+                        },
+                        {
+                            title: "Business Book 'The Essence of Management'",
+                            description: "Complete design for practical business guide for executives"
+                        },
+                        {
+                            title: "Cooking Magazine 'Heart of Washoku'",
+                            description: "Editorial design for monthly magazine introducing traditional Japanese cuisine"
+                        },
+                        {
+                            title: "Children's Book 'Forest Tales' Series",
+                            description: "Cover and layout design for children's picture book series"
+                        },
+                        {
+                            title: "Academic Book 'Introduction to Japanese Art History'",
+                            description: "Typesetting and design for university art history textbook"
+                        },
+                        {
+                            title: "Lifestyle Magazine 'City and Nature'",
+                            description: "Magazine design themed on harmony between urban life and nature"
+                        },
+                        {
+                            title: "Essay Collection 'Memories of Travel'",
+                            description: "Book design and cover for travel essay collection"
+                        },
+                        {
+                            title: "Professional Journal 'Architectural Design'",
+                            description: "Layout and visual composition for architecture professional magazine"
+                        },
+                        {
+                            title: "Literary Magazine 'Contemporary Literature'",
+                            description: "Complete design for quarterly magazine featuring modern literature"
+                        }
+                    ]
+                },
+                companyInfo: {
+                    title: "Company Information",
+                    labels: {
+                        name: "Company Name",
+                        representative: "Representative Director",
+                        address: "Address",
+                        phone: "Phone",
+                        email: "Email",
+                        business: "Business"
+                    },
+                    business: "Planning, production, and sales promotion of publications including books and magazines"
+                },
+                contact: {
+                    title: "Contact Us",
+                    subtitle: "Feel free to reach out",
+                    description: "Please feel free to contact us for production requests, quotations, or any inquiries."
+                },
+                footer: {
+                    copyright: "Copyright © 2026 Rakubun Inc. All Rights Reserved."
+                }
+            },
+
+            // 公司資訊（不需翻譯）
+            companyInfo: {
+                name: "楽文株式会社",
+                representative: "蘇 明聰",
+                representativeKana: "ソ メイソウ",
+                address: "〒179-0084 東京都練馬区氷川台三丁目29-1 パインフラッツ206号室",
+                phone: "+81-3-6906-8141",
+                email: "info.rakubun@gmail.com"
+            }
+        };
+    </script>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="#home" class="logo serif">
+                <span id="logo-text">楽文</span>
+                <span class="logo-en" id="logo-en">Rakubun</span>
+            </a>
+            
+            <nav id="mainNav">
+                <a href="#home" id="nav-home">ホーム</a>
+                <a href="#about" id="nav-about">会社概要</a>
+                <a href="#services" id="nav-services">サービス</a>
+                <a href="#portfolio" id="nav-portfolio">実績</a>
+                <a href="#contact" id="nav-contact">お問い合わせ</a>
+                
+                <div class="lang-switcher">
+                    <button class="lang-btn active" data-lang="ja">🇯🇵</button>
+                    <button class="lang-btn" data-lang="zh">🇹🇼</button>
+                    <button class="lang-btn" data-lang="en">🇬🇧</button>
+                </div>
+            </nav>
+
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1 class="serif" id="hero-slogan">想いを形に、本を文化に。</h1>
+            <div class="company-name serif" id="hero-company">楽文株式会社</div>
+            <div class="company-name-en" id="hero-company-en">Rakubun</div>
+            <p class="description" id="hero-description">書籍・雑誌の企画制作で、あなたの想いを美しいデザインに</p>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title serif" id="about-title">会社概要</h2>
+            <div class="about-content" id="about-content">
+                <!-- 此處使用 siteContent.ja.about.content -->
+                楽文株式会社は、東京を拠点に日本の出版業界に特化したデザインサービスを提供しています。書籍や雑誌の企画・制作から販売促進まで、出版物のライフサイクル全体をサポートします。創業者は台湾と北京で40年以上の出版デザイン実績を持ち、その豊富な経験と専門知識を日本市場に活かしています。私たちは、編集者や著者の「想い」を美しいビジュアルデザインに昇華させ、読者の心に届く本づくりをお手伝いします。伝統的な日本の美意識と現代的なデザイン技術を融合させ、時代を超えて愛される出版物の創造を目指しています。
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services">
+        <div class="container">
+            <h2 class="section-title serif" id="services-title">サービス</h2>
+            <div class="services-grid" id="services-grid">
+                <!-- 服務卡片將由 JavaScript 動態生成 -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section class="portfolio" id="portfolio">
+        <div class="container">
+            <h2 class="section-title serif" id="portfolio-title">実績紹介</h2>
+            <div class="portfolio-grid" id="portfolio-grid">
+                <!-- 作品集將由 JavaScript 動態生成 -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title serif" id="contact-title">お問い合わせ</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3 class="serif" id="contact-subtitle">お気軽にご連絡ください</h3>
+                    <p id="contact-description">書籍・雑誌のデザインに関するご相談、お見積もりのご依頼など、どうぞお気軽にお問い合わせください。経験豊富なスタッフが丁寧に対応いたします。</p>
+                    <p><strong id="contact-label-phone">電話:</strong> <a href="tel:+81-3-6906-8141">+81-3-6906-8141</a></p>
+                    <p><strong id="contact-label-email">Email:</strong> <a href="mailto:info.rakubun@gmail.com">info.rakubun@gmail.com</a></p>
+                    <p><strong id="contact-label-address">住所:</strong> 〒179-0084 東京都練馬区氷川台三丁目29-1 パインフラッツ206号室</p>
+                </div>
+                <div class="contact-map">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3237.8524088396234!2d139.66329!3d35.74978!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6018ed7e9b9c8f9d%3A0x1234567890abcdef!2z5p2x5Lqs6YO954e057-s6aas5Yy65rCt5bed5Y-w5LiJ5LiB55uu77yS77yZ4oiS77yR!5e0!3m2!1sja!2sjp!4v1234567890123!5m2!1sja!2sjp"
+                        allowfullscreen="" 
+                        loading="lazy">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p id="footer-copyright">Copyright © 2026 楽文株式会社 All Rights Reserved.</p>
+    </footer>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-close" id="lightbox-close">&times;</span>
+        <span class="lightbox-nav lightbox-prev" id="lightbox-prev">‹</span>
+        <div class="lightbox-content">
+            <img src="" alt="" id="lightbox-img">
+        </div>
+        <span class="lightbox-nav lightbox-next" id="lightbox-next">›</span>
+    </div>
+
+    <script>
+        // ========================================
+        // 語言切換功能
+        // ========================================
+        let currentLang = 'ja';
+
+        function switchLanguage(lang) {
+            currentLang = lang;
+            const content = siteContent[lang];
+
+            // 更新導航選單
+            document.getElementById('nav-home').textContent = content.nav.home;
+            document.getElementById('nav-about').textContent = content.nav.about;
+            document.getElementById('nav-services').textContent = content.nav.services;
+            document.getElementById('nav-portfolio').textContent = content.nav.portfolio;
+            document.getElementById('nav-contact').textContent = content.nav.contact;
+
+            // 更新 Hero 區塊
+            document.getElementById('hero-slogan').textContent = content.hero.slogan;
+            document.getElementById('hero-company').textContent = content.hero.companyName;
+            document.getElementById('hero-company-en').textContent = content.hero.companyNameEn;
+            document.getElementById('hero-description').textContent = content.hero.description;
+
+            // 更新 About 區塊
+            document.getElementById('about-title').textContent = content.about.title;
+            document.getElementById('about-content').textContent = content.about.content;
+
+            // 更新 Services 區塊
+            document.getElementById('services-title').textContent = content.services ? 
+                (lang === 'ja' ? 'サービス' : lang === 'zh' ? '服務項目' : 'Services') : 'サービス';
+            renderServices();
+
+            // 更新 Portfolio 區塊
+            document.getElementById('portfolio-title').textContent = content.portfolio.title;
+            renderPortfolio();
+
+            // 更新 Contact 區塊
+            document.getElementById('contact-title').textContent = content.contact.title;
+            document.getElementById('contact-subtitle').textContent = content.contact.subtitle;
+            document.getElementById('contact-description').textContent = content.contact.description;
+            document.getElementById('contact-label-phone').textContent = content.companyInfo.labels.phone + ':';
+            document.getElementById('contact-label-email').textContent = content.companyInfo.labels.email + ':';
+            document.getElementById('contact-label-address').textContent = content.companyInfo.labels.address + ':';
+
+            // 更新 Footer
+            document.getElementById('footer-copyright').textContent = content.footer.copyright;
+
+            // 更新按鈕狀態
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.lang === lang) {
+                    btn.classList.add('active');
+                }
+            });
+
+            // 切換字體（中文使用繁體字體）
+            if (lang === 'zh') {
+                document.body.classList.add('lang-zh');
+            } else {
+                document.body.classList.remove('lang-zh');
+            }
+        }
+
+        // ========================================
+        // 動態渲染服務卡片
+        // ========================================
+        function renderServices() {
+            const servicesGrid = document.getElementById('services-grid');
+            const services = siteContent[currentLang].services;
+            
+            servicesGrid.innerHTML = services.map(service => `
+                <div class="service-card">
+                    <h3 class="serif">${service.title}</h3>
+                    <p>${service.description}</p>
+                </div>
+            `).join('');
+        }
+
+        // ========================================
+        // 動態渲染作品集
+        // ========================================
+        function renderPortfolio() {
+            const portfolioGrid = document.getElementById('portfolio-grid');
+            const portfolio = siteContent[currentLang].portfolio.items;
+            
+            portfolioGrid.innerHTML = portfolio.map((item, index) => `
+                <div class="portfolio-item" onclick="openLightbox(${index})">
+                    <img src="work0${index + 1}.jpg" alt="${item.title}" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22600%22%3E%3Crect fill=%22%23E8E8E8%22 width=%22800%22 height=%22600%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2224%22 fill=%22%23999%22 text-anchor=%22middle%22 dy=%22.3em%22%3E${item.title}%3C/text%3E%3C/svg%3E'">
+                    <div class="portfolio-overlay">
+                        <h4>${item.title}</h4>
+                        <p>${item.description}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // ========================================
+        // Lightbox 功能
+        // ========================================
+        let currentImageIndex = 0;
+        const totalImages = 9;
+
+        function openLightbox(index) {
+            currentImageIndex = index;
+            const lightbox = document.getElementById('lightbox');
+            const img = document.getElementById('lightbox-img');
+            const portfolio = siteContent[currentLang].portfolio.items;
+            
+            img.src = `work0${index + 1}.jpg`;
+            img.alt = portfolio[index].title;
+            img.onerror = function() {
+                this.src = `data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22600%22%3E%3Crect fill=%22%23E8E8E8%22 width=%22800%22 height=%22600%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2224%22 fill=%22%23999%22 text-anchor=%22middle%22 dy=%22.3em%22%3E${portfolio[index].title}%3C/text%3E%3C/svg%3E`;
+            };
+            
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function nextImage() {
+            currentImageIndex = (currentImageIndex + 1) % totalImages;
+            openLightbox(currentImageIndex);
+        }
+
+        function prevImage() {
+            currentImageIndex = (currentImageIndex - 1 + totalImages) % totalImages;
+            openLightbox(currentImageIndex);
+        }
+
+        // ========================================
+        // 漢堡選單功能
+        // ========================================
+        const hamburger = document.getElementById('hamburger');
+        const mainNav = document.getElementById('mainNav');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mainNav.classList.toggle('active');
+        });
+
+        // 點擊導航連結時關閉選單
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mainNav.classList.remove('active');
+            });
+        });
+
+        // ========================================
+        // 事件監聽器設定
+        // ========================================
+        document.addEventListener('DOMContentLoaded', () => {
+            // 語言切換按鈕
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    switchLanguage(btn.dataset.lang);
+                });
+            });
+
+            // Lightbox 控制
+            document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+            document.getElementById('lightbox-next').addEventListener('click', nextImage);
+            document.getElementById('lightbox-prev').addEventListener('click', prevImage);
+
+            // 點擊 lightbox 背景關閉
+            document.getElementById('lightbox').addEventListener('click', (e) => {
+                if (e.target.id === 'lightbox') {
+                    closeLightbox();
+                }
+            });
+
+            // 鍵盤控制 lightbox
+            document.addEventListener('keydown', (e) => {
+                if (document.getElementById('lightbox').classList.contains('active')) {
+                    if (e.key === 'Escape') closeLightbox();
+                    if (e.key === 'ArrowRight') nextImage();
+                    if (e.key === 'ArrowLeft') prevImage();
+                }
+            });
+
+            // 初始化渲染
+            renderServices();
+            renderPortfolio();
+        });
+    </script>
+</body>
+</html>
